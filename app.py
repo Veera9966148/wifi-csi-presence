@@ -22,7 +22,7 @@ import joblib
 from flask import Flask, jsonify, render_template
 
 from features import extract_features_from_window
-from data.generate_synthetic_csi import generate_window, CLASSES, WINDOW_LEN, N_SUBCARRIERS
+from generate_synthetic_csi import generate_window, CLASSES, WINDOW_LEN, N_SUBCARRIERS
 
 HERE = os.path.dirname(__file__)
 MODELS_DIR = os.path.join(HERE, "models")
