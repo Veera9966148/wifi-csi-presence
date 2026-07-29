@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSI Presence — Wi-Fi Sensing Console</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="scope-lines" aria-hidden="true"></div>
+
+<header class="masthead">
+  <div class="masthead-left">
+    <span class="dot" id="linkDot"></span>
+    <h1>CSI&nbsp;SENSE</h1>
+    <span class="sub">contactless presence &amp; activity, from Wi-Fi multipath alone</span>
+  </div>
+  <div class="masthead-right">
+    <span class="badge">SYNTHETIC DATA · PROTOTYPE MODE</span>
+  </div>
+</header>
+
+<main class="grid">
+
+  <section class="panel panel-status">
+    <div class="panel-label">room state</div>
+    <div class="status-row">
+      <div class="status-light" id="statusLight"></div>
+      <div>
+        <div class="status-text" id="statusText">—</div>
+        <div class="status-sub" id="statusSub">waiting for first reading…</div>
+      </div>
+    </div>
+    <div class="confidence-track">
+      <div class="confidence-fill" id="presenceFill"></div>
+    </div>
+    <div class="confidence-label">
+      <span>presence confidence</span>
+      <span id="presenceConfNum">0%</span>
+    </div>
+  </section>
+
+  <section class="panel panel-activity">
+    <div class="panel-label">activity</div>
+    <div class="activity-name" id="activityName">—</div>
+    <div class="confidence-track">
+      <div class="confidence-fill fill-amber" id="activityFill"></div>
+    </div>
+    <div class="confidence-label">
+      <span>activity confidence</span>
+      <span id="activityConfNum">0%</span>
+    </div>
+    <div class="activity-chips">
+      <span class="chip" data-act="empty">empty room</span>
+      <span class="chip" data-act="sitting">sitting</span>
+      <span class="chip" data-act="standing">standing</span>
+      <span class="chip" data-act="walking">walking</span>
+    </div>
+  </section>
+
+  <section class="panel panel-wave">
+    <div class="panel-label">CSI amplitude — live window (simulated multipath fading)</div>
+    <canvas id="waveCanvas" height="140"></canvas>
+  </section>
+
+  <section class="panel panel-metrics">
+    <div class="panel-label">model report card</div>
+    <table class="metrics-table">
+      <thead>
+        <tr><th>task</th><th>model</th><th>accuracy</th><th>F1</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>presence</td>
+          <td>{{ presence_metrics.best_model }}</td>
+          <td>{{ "%.1f"|format(presence_metrics.results[presence_metrics.best_model].accuracy * 100) }}%</td>
+          <td>{{ "%.3f"|format(presence_metrics.results[presence_metrics.best_model].f1) }}</td>
+        </tr>
+        <tr>
+          <td>activity</td>
+          <td>{{ activity_metrics.best_model }}</td>
+          <td>{{ "%.1f"|format(activity_metrics.results[activity_metrics.best_model].accuracy * 100) }}%</td>
+          <td>{{ "%.3f"|format(activity_metrics.results[activity_metrics.best_model].f1) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="disclaimer">
+      Trained on synthetic CSI, not a physical Wi-Fi capture — these numbers describe
+      how well the pipeline separates its own generated signatures, not real-world
+      accuracy. Swap in Widar / SignFi / CSI-HAR data before citing a number anywhere.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <span>polling every 2s · <span id="lastUpdate">—</span></span>
+</footer>
+
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>
