@@ -1,0 +1,35 @@
+{
+  "best_model": "RandomForest",
+  "results": {
+    "RandomForest": {
+      "accuracy": 0.8666666666666667,
+      "precision": 0.8667496886674969,
+      "recall": 0.8666666666666667,
+      "f1": 0.866642958748222
+    },
+    "DecisionTree": {
+      "accuracy": 0.8533333333333334,
+      "precision": 0.8539989264626946,
+      "recall": 0.8533333333333333,
+      "f1": 0.8530982905982906
+    },
+    "SVM": {
+      "accuracy": 0.86,
+      "precision": 0.8607085346215781,
+      "recall": 0.8600000000000001,
+      "f1": 0.8597756410256411
+    },
+    "XGBoost": {
+      "accuracy": 0.8566666666666667,
+      "precision": 0.8566856330014225,
+      "recall": 0.8566666666666667,
+      "f1": 0.8566602960131562
+    }
+  },
+  "classes": [
+    "empty",
+    "sitting",
+    "standing",
+    "walking"
+  ]
+}
