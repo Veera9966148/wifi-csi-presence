@@ -83,6 +83,8 @@ Flask app:
 - Ensure `models/*.joblib` and `models/*.json` are committed (or regenerated
   by a build-step call to `train_model.py`) so the deployed app has trained
   artifacts to load.
+
+  
   deploy live demo link : https://wifi-csi-presence.onrender.com
   
 
